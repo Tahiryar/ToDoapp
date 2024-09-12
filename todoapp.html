@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do App</title>
+    <style>
+        /* Add some basic styles */
+        button {
+            margin-left: 10px;
+        }
+        .delete {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>ToDo App</h1>
+    <input type="text" id="task-input" placeholder="Enter Your Task">
+    <button id="add-task-btn">Add Task</button>
+    <ul id="task-list">
+        <li><button class="delete">delete</button>Eat</li>
+        <li><button class="delete">delete</button>Sleep</li>
+    </ul>
+
+    <script>
+        // Select elements
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const taskInput = document.getElementById('task-input');
+        const taskList = document.getElementById('task-list');
+
+        // Add task event listener
+        addTaskBtn.addEventListener('click', () => {
+            const taskText = taskInput.value.trim();
+            if (taskText === '') return; // Prevent adding empty tasks
+
+            // Create new list item
+            const newItem = document.createElement('li');
+            newItem.textContent = taskText;
+
+            // Create delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'delete';
+            deleteBtn.classList.add('delete');
+            deleteBtn.addEventListener('click', () => {
+                newItem.remove(); // Remove the task item
+            });
+
+            // Append delete button to list item
+            newItem.appendChild(deleteBtn);
+
+            // Append list item to task list
+            taskList.appendChild(newItem);
+
+            // Clear input field
+            taskInput.value = '';
+        });
+
+        // Optional: add delete functionality to existing tasks
+        taskList.addEventListener('click', (event) => {
+            if (event.target.classList.contains('delete')) {
+                event.target.parentElement.remove();
+            }
+        });
+    </script>
+</body>
+</html>
